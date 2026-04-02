@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Submitted | Community Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { background-color: #030712; color: white; font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: auto; padding: 40px; text-align: center; }
+        .success-box { background: #111827; padding: 40px; border-radius: 20px; margin: 30px 0; }
+        .icon { font-size: 80px; color: #22c55e; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="success-box">
+        <i class="fa-solid fa-circle-check icon"></i>
+        <h1 style="font-size:28px;">Report Submitted Successfully!</h1>
+        <p style="font-size:18px; color:#9ca3af;">Thank you for helping improve your community.</p>
+        
+        <div style="background:#1f2937; padding:20px; border-radius:12px; margin:25px 0;">
+            <p style="font-size:14px; color:#9ca3af;">Your Reference Number</p>
+            <p style="font-size:32px; font-family:monospace; font-weight:bold;">{{ reference_number }}</p>
+        </div>
+        
+        <p>Expected resolution time: <strong>3–7 working days</strong></p>
+    </div>
+
+    <a href="{% url 'report_app:home' %}" style="background:#2563eb; padding:16px 32px; border-radius:16px; text-decoration:none; color:white; display:inline-block; margin-right:10px;">Report Another Issue</a>
+    <a href="{% url 'dashboard_app:dashboard' %}" style="background:#1f2937; padding:16px 32px; border-radius:16px; text-decoration:none; color:white; display:inline-block;">View My Dashboard</a>
+</div>
+</body>
+</html>

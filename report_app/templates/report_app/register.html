@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Community Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body { background-color: #030712; color: white; font-family: Arial, sans-serif; }
+        .container { max-width: 400px; margin: 80px auto; padding: 40px; background: #111827; border-radius: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 style="text-align:center; font-size:28px;">Create Account</h1>
+    <form method="POST" style="margin-top:30px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="width:100%; background:#2563eb; padding:16px; border:none; border-radius:16px; font-size:18px; font-weight:bold; margin-top:20px;">Register</button>
+    </form>
+    <p style="text-align:center; margin-top:25px;">
+        Already have an account? <a href="{% url 'report_app:login' %}" style="color:#60a5fa;">Login here</a>
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Report Dashboard | Community Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #030712;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 24px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-box {
+            background: #2563eb;
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        .report-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .report-card {
+            background: #111827;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .report-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .icon {
+            font-size: 28px;
+        }
+        .report-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .small-text {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        .status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .yellow { background: #facc15; color: black; }
+        .green { background: #22c55e; color: black; }
+        .blue { background: #3b82f6; }
+        .details-link {
+            display: block;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        .details-link:hover {
+            text-decoration: underline;
+        }
+        .floating-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #2563eb;
+            padding: 16px 24px;
+            border-radius: 24px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .floating-btn:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <div class="logo-box">cD</div>
+            <span style="font-size:22px;">Community Connect</span>
+        </div>
+        <div class="user">
+            <i class="fa-solid fa-user-circle" style="font-size:28px;"></i>
+            <span>{{ request.user.username|default:"Mr. Dlamini" }}</span>
+        </div>
+    </div>
+
+    <h1>My Report Dashboard</h1>
+
+    <div class="report-list">
+        {% for report in reports %}
+        <div class="report-card">
+            <div class="report-left">
+                <div class="icon">
+                    {% if report.category == 'pothole' %}🕳️
+                    {% elif report.category == 'streetlight' %}💡
+                    {% elif report.category == 'illegal_dumping' %}🗑️
+                    {% else %}📌{% endif %}
+                </div>
+                <div>
+                    <div class="report-title">{{ report.get_category_display }}</div>
+                    <div class="small-text">
+                        Ref: {{ report.reference_number }} | {{ report.reported_date }}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:right;">
+                <div class="status 
+                    {% if report.status == 'in_progress' %}yellow
+                    {% elif report.status == 'resolved' %}green
+                    {% else %}blue{% endif %}">
+                    {{ report.get_status_display }}
+                </div>
+                <a href="{% url 'dashboard_app:report_detail' report.pk %}" class="details-link">View Details →</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<a href="{% url 'report_app:home' %}" class="floating-btn">
+    <i class="fa-solid fa-plus"></i>
+    REPORT NEW ISSUE
+</a>
+
+</body>
+</html>
